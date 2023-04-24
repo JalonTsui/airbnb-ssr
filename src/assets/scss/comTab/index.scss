@@ -1,0 +1,39 @@
+.tap-top {
+    width: 100%;
+    padding: 0 1.2rem;
+    display: flex;
+    justify-content: space-around;
+    position: relative;
+
+    &::after {
+        content: '';
+        position: absolute;
+        bottom: 0px;
+        border: 2px solid #999999;
+        z-index: -1;
+        width: 100%;
+    }
+
+    &::before {
+        content: '';
+        border: 2px solid orange;
+        position: absolute;
+        bottom: 0px;
+        left: 0px;
+        width: var(--width);
+        transition: all .3s linear;
+        transform: translateX(var(--left));
+    }
+
+    div {
+        padding: .8rem;
+        font-size: 2rem;
+        margin: 0 .5rem;
+        @include flex-center;
+        position: relative;
+
+        &:hover {
+            cursor: pointer;
+        }
+    }
+}

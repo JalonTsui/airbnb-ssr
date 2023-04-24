@@ -1,0 +1,35 @@
+.contain {
+    // border: 1px solid red;
+    width: 100%;
+    height: 10vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .imgContain {
+        // border: 1px solid red;
+        margin-left: 2%;
+
+        img {
+            width: 15rem;
+
+            &:hover {
+                cursor: pointer;
+            }
+        }
+    }
+
+    .navContain {
+        height: 100%;
+        // border: 1px solid red;
+        min-width: 500px;
+        max-width: 800px;
+        margin-right: 2%;
+
+        .el-menu-demo {
+            height: 100%;
+            justify-content: flex-end;
+            border-bottom: none;
+        }
+    }
+}

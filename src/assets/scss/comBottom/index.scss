@@ -1,0 +1,42 @@
+.contain {
+    border-top: 1px solid #999999;
+    width: 100%;
+    padding: 4rem 0;
+
+    article {
+        width: 80%;
+        margin: 0 auto;
+        @include flex-center;
+        padding-top: 2rem;
+    }
+
+    section {
+        border-bottom: 1px solid #999999;
+        width: 80%;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        font-size: 1rem;
+        padding-bottom: 2rem;
+
+        .content-item {
+            display: flex;
+            flex-direction: column;
+
+            .title {
+                font-size: 1.5rem;
+                font-weight: bold;
+                margin-bottom: .8rem;
+            }
+
+            a {
+                margin-bottom: .4rem;
+                color: #999999;
+
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+        }
+    }
+}
