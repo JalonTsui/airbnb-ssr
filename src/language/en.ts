@@ -4,7 +4,8 @@ export default {
     orders: 'Housing order center',
     records: 'The historical footprints',
     language: 'Language',
-    login: 'Login/Sign up'
+    login: 'Login/Sign up',
+    logout:'Logout'
   },
   footer: { // 底部组件
     airbnb: 'Airbnb',
@@ -28,5 +29,13 @@ export default {
     service: 'Service',
     help: 'Help',
     neighbors: 'Neighbors'
+  },
+  login: {
+    loginBtn: 'Log in Airbnb',
+    signBtn: 'Sign up',
+    loginTab: 'Log in',
+    signTab: 'Sign up',
+    placeMobile: 'Please  write correct mobile number',
+    placePass: 'Please white corret password'
   }
 }

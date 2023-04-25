@@ -1,19 +1,16 @@
+// https://service-ase3oocp-1302839645.sh.apigw.tencentcs.com/api/room/room/getRoomList?pageNo=1&pageSize=3
 import { http } from '../utils/http'
-import DB from '@/utils/indexedDB'
-const airbnbDB = new DB('airbnbDB')
+import airbnb from '../db'
 
 // 真实接口
-export function fetchDemo() {
-  return http.httpGet('http://127.0.0.1:1578/login')
+export function fetchRoomList() {
+  return http.httpRequestGet('https://service-ase3oocp-1302839645.sh.apigw.tencentcs.com/api/room/room/getRoomList?pageNo=1&pageSize=3', {})
 }
-
-// api/index.ts 
 // Mock接口
 export async function fetchElephant() {
-  await airbnbDB.openStore('elephant', 'id', ['nose', 'ear'])      // 连接数据库
-  const result = await airbnbDB.getList('elephant').then(res => {  // 查询数据
+  await airbnb.airbnbDB.openStore({ elephant: { keyPath: 'id', indexs: ['nose', 'ear'] } })
+  const result = await airbnb.airbnbDB.getList('elephant').then(res => {
     return { code: '000000', message: '操作成功', result: res, success: true }
   })
   return result
 }
-
