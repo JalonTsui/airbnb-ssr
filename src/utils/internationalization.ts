@@ -1,6 +1,7 @@
 import zh from '@/language/zh'
 import en from '@/language/en'
-const locale: string = window.navigator.language
+// const locale: string = window.navigator.language
+const locale = 'zh-cn'
 const language: any = {
     'zh': 'zh',
     'zh-CN': 'zh', // key为'zh-CN'表示浏览器端语言环境

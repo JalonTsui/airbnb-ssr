@@ -4,10 +4,12 @@ export const useLoginState = defineStore('useLoginState', {
         return {
             get loginState() {
                 const obj: any = {}
-                document.cookie.split('; ').forEach(item => {
-                    const [key, value] = item.split('=')
-                    obj[key] = value
-                })
+                if (!import.meta.env.SSR) {
+                    document.cookie.split('; ').forEach(item => {
+                        const [key, value] = item.split('=')
+                        obj[key] = value
+                    })
+                }
                 if (obj.token) {
                     // 可以追加token验证
                     return true

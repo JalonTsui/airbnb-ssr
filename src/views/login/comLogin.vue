@@ -1,5 +1,6 @@
 <script setup lang='ts'>
-/* global ElMessage */
+// /* global ElMessage */
+import { ElMessage } from 'element-plus/es/components/message/index.mjs'
 import comTabs from '@/components/comTabs.vue'
 import comLogin from '@/components/comLogin.vue'
 import { ref } from 'vue'

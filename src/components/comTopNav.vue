@@ -1,5 +1,7 @@
 <script setup lang='ts'>
-/* global ElMessage */
+// /* global ElMessage */
+// import { ElMenu, ElSubMenu, ElMenuItem } from 'element-plus/es/components/menu/index.mjs'
+import { ElMessage } from 'element-plus/es/components/message/index.mjs'
 import { ref, inject } from 'vue'
 import { storeToRefs } from 'pinia'
 import { t } from '@/utils/internationalization'
@@ -16,7 +18,7 @@ const activeIndex = ref('1')
 // 点击nav的事件
 // key就是和keyPath都是index，一个展示第一层，一个以数组展示全部层级
 // 在没有使用的变量前面加_可以让报错消除
-const handleSelect = async (key: string, keyPath: string[]) => {
+const handleSelect = async (key: string, _keyPath: string[]) => {
     // 房源和订单信息orders
     if (key === "orders") {
         console.log(key)
@@ -27,11 +29,16 @@ const handleSelect = async (key: string, keyPath: string[]) => {
     }
     // 登录和注册login
     if (key === 'login') {
-        router.push('login')
+        console.log('in')
+        try {
+            router.push({ name: 'login' })
+        } catch (e) {
+            console.log(e)
+        }
     }
     // 如果是改变语言的时候
-    if (keyPath[0] === "language") {
-        emits('onChangeLanguage', keyPath[1])
+    if (key === "zh" || key === "en") {
+        emits('onChangeLanguage', key)
     }
     // 登出时候
     if (key === 'logout') {
@@ -49,6 +56,11 @@ const handleSelect = async (key: string, keyPath: string[]) => {
 function toHome() {
     router.push('/')
 }
+// 解决el-menu-sub组件运用后，在SSR下无法跳转到登录页面的问题
+const showSub = ref(false)
+if (!import.meta.env.SSR) {
+    showSub.value = true
+}
 </script>
 <template>
     <div class="contain">
@@ -60,13 +72,13 @@ function toHome() {
                 :ellipsis="false">
                 <el-menu-item index="orders">{{ t(localeLanguage).header.orders }}</el-menu-item>
                 <el-menu-item index="records">{{ t(localeLanguage).header.records }}</el-menu-item>
-                <el-sub-menu index="language">
+                <el-sub-menu index="language" v-if="showSub">
                     <template #title>{{ t(localeLanguage).header.language }}</template>
                     <el-menu-item index="zh">中文</el-menu-item>
                     <el-menu-item index="en">English</el-menu-item>
                 </el-sub-menu>
-                <el-menu-item index="login" v-if="!loginState">{{ t(localeLanguage).header.login }}</el-menu-item>
-                <el-sub-menu index="profile" v-else>
+                <el-menu-item index="login" v-if="!loginState && showSub">{{ t(localeLanguage).header.login }}</el-menu-item>
+                <el-sub-menu index="profile" v-if="loginState">
                     <template #title>
                         <div class="profile">G</div>
                     </template>

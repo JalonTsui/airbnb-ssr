@@ -4,6 +4,9 @@ export const useLang = defineStore('useLang', {
         return {
             // lang: 'zh-cn'
             get lang() {
+                if(import.meta.env.SSR){
+                    return 'zh-cn'
+                }
                 if (localStorage.getItem('lang')) {
                     return localStorage.getItem('lang') as ('zh-cn' | 'en')
                 } else {

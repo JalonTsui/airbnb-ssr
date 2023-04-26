@@ -1,5 +1,5 @@
 <script setup lang='ts'>
-import { reactive, ref, defineEmits } from 'vue'
+import { reactive, ref } from 'vue'
 // 引入语言控制
 import { useLang } from '@/store/conLang'
 import { storeToRefs } from 'pinia'

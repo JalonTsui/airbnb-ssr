@@ -1,5 +1,5 @@
 <script setup lang='ts'>
-import { ref, onMounted, defineEmits, watch } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 // 引入语言包
 import { t } from '@/utils/internationalization'
 // 引入当前语言环境
