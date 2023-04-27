@@ -23,7 +23,7 @@ async function loginFun(value: any) {
     const { code, message } = result
     if (code === '000000') {
         ElMessage({ message, type: 'success' })
-        router.push('/home')
+        router.push({ name: 'main' })
     } else {
         ElMessage.error(message)
     }

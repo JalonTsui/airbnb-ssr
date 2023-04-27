@@ -1,6 +1,6 @@
 import axios, { AxiosRequestConfig, AxiosResponse, InternalAxiosRequestConfig } from 'axios'
 // import 'element-plus/es/components/message/style/css'
-// import {ElMessage} from 'element-plus'
+import { ElMessage } from 'element-plus/es/components/message/index.mjs'
 
 const defaultConfig: AxiosRequestConfig = {
   timeout: 5000
@@ -32,9 +32,9 @@ class Http {
       const { data } = res
       const { success } = data
       if (success) {
-        ElMessage('成功')
+        ElMessage({ message: '获取成功', type: 'success' })
       } else {
-        ElMessage('失败')
+        ElMessage.error('失败')
       }
       return res
     }, (err: any) => {
@@ -44,11 +44,12 @@ class Http {
     })
   }
 
-  public httpGet<T>(url: string, params?: T): Promise<T> {
+
+  public httpGet<T>(url: string, params?: AxiosRequestConfig): Promise<T> {
     return Http.axiosInstance.get(url, { params }).then(res => res.data).catch()
   }
 
-  public httpPost<T>(url: string, params?: T): Promise<T> {
+  public httpPost<T>(url: string, params?: AxiosRequestConfig): Promise<T> {
     return Http.axiosInstance.post(url, { params }).then(res => res.data).catch()
   }
 }

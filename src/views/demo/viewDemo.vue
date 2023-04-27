@@ -5,7 +5,7 @@ import commonChild from './commonChild.vue'
 const router = useRouter()
 const { t } = useI18n()
 function toHome() {
-    router.push('/home')
+    router.push({ name: 'main' })
 }
 </script>
 

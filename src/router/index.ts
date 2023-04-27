@@ -1,28 +1,35 @@
 import { createRouter, createWebHistory, createMemoryHistory } from 'vue-router'
 import comLayout from '@/views/layout/comLayout.vue'
-// import viewHome from '@/views/home/viewHome.vue'
-// import comLogin from '@/views/login/comLogin.vue'
 const routes = [
     {
         path: '/',
         name: 'layout',
-        redirect: 'home',
+        redirect: 'home/main',
         component: comLayout,
         children: [
             {
                 path: 'home',
                 component: () => import('@/views/home/viewHome.vue'),
-                // component: viewHome,
                 name: 'home',
                 meta: {
                     name: 'home',
                     keepAlive: false
-                }
+                },
+                children: [
+                    {
+                        path: 'main',
+                        component: () => import('@/views/home/components/mainContent.vue'),
+                        name: 'main',
+                        meta: {
+                            name: 'main',
+                            keepAlive: false
+                        }
+                    }
+                ]
             },
             {
                 path: 'login',
                 component: () => import('@/views/login/comLogin.vue'),
-                // component: comLogin,
                 name: 'login',
                 meta: {
                     name: 'login',
@@ -31,28 +38,6 @@ const routes = [
             }
         ]
     },
-]
-const routesCopy = [
-    {
-        path: '/home',
-        component: () => import('@/views/home/viewHome.vue'),
-        // component: viewHome,
-        name: 'home',
-        meta: {
-            name: 'home',
-            keepAlive: false
-        }
-    },
-    {
-        path: '/login',
-        component: () => import('@/views/login/comLogin.vue'),
-        // component: comLogin,
-        name: 'login',
-        meta: {
-            name: 'login',
-            keepAlive: false
-        }
-    }
 ]
 
 

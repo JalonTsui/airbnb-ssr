@@ -5,7 +5,7 @@ export default {
     records: 'The historical footprints',
     language: 'Language',
     login: 'Login/Sign up',
-    logout:'Logout'
+    logout: 'Logout'
   },
   footer: { // 底部组件
     airbnb: 'Airbnb',
@@ -37,5 +37,18 @@ export default {
     signTab: 'Sign up',
     placeMobile: 'Please  write correct mobile number',
     placePass: 'Please white corret password'
+  },
+  home: {
+    h2Title: "New Year's Eve Discounts Housing Resource",
+    subTitle: 'Quality housing resource，Under 5 fold',
+    city: {
+      hz: 'Hangzhou',
+      sh: 'Shanghai',
+      nj: 'Nanjing',
+      cd: 'Chengdu',
+      cq: 'Chongqing',
+      bj: 'Beijing',
+      sz: 'Suzhou'
+    }
   }
 }

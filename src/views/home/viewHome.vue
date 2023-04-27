@@ -14,6 +14,7 @@ import { ref, provide } from 'vue'
 // 改变全局的语言变化
 import { useLang } from '@/store/conLang'
 import { storeToRefs } from 'pinia'
+// import mainContent from './components/mainContent.vue'
 
 const storeLang = useLang()
 const { lang: langNow } = storeToRefs(storeLang)
@@ -50,6 +51,10 @@ provide('localeLanguage', localeLanguage)
   <!-- 头部组件 -->
   <comTopNav @onChangeLanguage="onChangeLanguage"></comTopNav>
   <!-- 内容 -->
+  <div class="container">
+    <!-- <mainContent></mainContent> -->
+    <router-view></router-view>
+  </div>
   <!-- 底部 -->
   <comBottom></comBottom>
 </template>

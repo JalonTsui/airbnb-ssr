@@ -1,11 +1,36 @@
-$red:red;
+$red: red;
+
 @mixin line-text-overflow {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+
 @mixin flex-center {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+// 主体基本样式
+@mixin main-wapper {
+    width: 64rem;
+    margin: 40px auto;
+}
+
+// flex布局
+@mixin flex-layout($dir: column, $justify: center, $align: center) {
+    display: flex;
+    flex-direction: $dir;
+    justify-content: $justify;
+    align-items: $align;
+    flex-wrap: wrap;
+}
+
+// 多行文本超过行数显示省略号
+@mixin text-overflow($line: 1) {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: $line;
+    overflow: hidden;
 }

@@ -1,6 +1,4 @@
 <script setup lang='ts'>
-// /* global ElMessage */
-// import { ElMenu, ElSubMenu, ElMenuItem } from 'element-plus/es/components/menu/index.mjs'
 import { ElMessage } from 'element-plus/es/components/message/index.mjs'
 import { ref, inject } from 'vue'
 import { storeToRefs } from 'pinia'
@@ -29,7 +27,6 @@ const handleSelect = async (key: string, _keyPath: string[]) => {
     }
     // 登录和注册login
     if (key === 'login') {
-        console.log('in')
         try {
             router.push({ name: 'login' })
         } catch (e) {
@@ -54,7 +51,7 @@ const handleSelect = async (key: string, _keyPath: string[]) => {
 }
 // 跳转回主页
 function toHome() {
-    router.push('/')
+    router.push({ name: 'main' })
 }
 // 解决el-menu-sub组件运用后，在SSR下无法跳转到登录页面的问题
 const showSub = ref(false)
@@ -77,7 +74,8 @@ if (!import.meta.env.SSR) {
                     <el-menu-item index="zh">中文</el-menu-item>
                     <el-menu-item index="en">English</el-menu-item>
                 </el-sub-menu>
-                <el-menu-item index="login" v-if="!loginState && showSub">{{ t(localeLanguage).header.login }}</el-menu-item>
+                <el-menu-item index="login" v-if="!loginState && showSub">{{ t(localeLanguage).header.login
+                }}</el-menu-item>
                 <el-sub-menu index="profile" v-if="loginState">
                     <template #title>
                         <div class="profile">G</div>

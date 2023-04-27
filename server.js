@@ -2,11 +2,6 @@ import fs from 'fs'
 import path from 'path'
 import { fileURLToPath } from 'url'
 import express from 'express'
-// const fs = require('fs')
-// const path = require('path')
-// const express = require('express')
-// const { createServer: createViteServer } = require('vite')
-// const Url = require('url')
 import { createServer as createViteServer } from 'vite'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
@@ -32,10 +27,6 @@ async function createServer() {
 
     app.use('*', async (req, res, next) => {
         const url = req.originalUrl
-        // const url = req.baseUrl
-        // console.log(url)
-        // const url = '/login'
-        // console.log(req, '----------------------------')
 
         try {
             let template

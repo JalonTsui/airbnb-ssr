@@ -1,9 +1,4 @@
-.name {
-    color: blue;
-
-    div {
-        border: 1px solid red;
-        width: 20px;
-        @include line-text-overflow;
-    }
+.container{
+    // border: 1px solid red;
+    width: 100%;
 }
