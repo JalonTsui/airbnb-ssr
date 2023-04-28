@@ -1,10 +1,29 @@
-<script setup lang='ts'>
+<script lang='ts'>
+import { defineComponent } from 'vue'
 import { t } from '@/utils/internationalization'
 import { useLang } from '@/store/conLang'
 import { storeToRefs } from 'pinia'
 import mainList from './components/mainList.vue'
-const storeLang = useLang()
-const { lang: langNow } = storeToRefs(storeLang)
+import { IRoomListParams } from '@/api/interface'
+
+export default defineComponent({
+    components: {
+        mainList
+    },
+    setup() {
+        const storeLang = useLang()
+        const { lang: langNow } = storeToRefs(storeLang)
+        return {
+            t,
+            langNow
+        }
+    },
+    asyncData({ storeHomeSwiper }: any) {
+        console.log('预取数据' + new Date().getTime())
+        const { pageNo } = storeHomeSwiper
+        return storeHomeSwiper.getRoomList({ pageNo } as IRoomListParams)
+    }
+})
 </script>
 <template>
     <div class="home-page">

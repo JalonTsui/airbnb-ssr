@@ -59,7 +59,7 @@ export const useHomeSwiper = defineStore('useHomeSwiper', {
                     const orders = result.orders
                     const total = result.total
                     if (success) {
-                        console.log('保存到Vuex中', orders.data)
+                        // console.log('保存到homeSwiper中', orders.data)
                         // commit('setRoomList', orders.data)
                         this.setRoomList(orders.data)
                         this.total = total

@@ -62,13 +62,17 @@ if (!import.meta.env.SSR) {
 <template>
     <div class="contain">
         <div class="imgContain">
-            <img src="@/assets/image/topNav/topNav.png" @click="toHome" />
+            <img src="@/assets/image/topNav/topNav.png" @click="toHome" alt="爱此迎" />
         </div>
         <div class="navContain">
             <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect"
                 :ellipsis="false">
                 <el-menu-item index="orders">{{ t(localeLanguage).header.orders }}</el-menu-item>
                 <el-menu-item index="records">{{ t(localeLanguage).header.records }}</el-menu-item>
+                <!-- 用于服务端渲染占位，避免跳动 -->
+                <el-menu-item index="demoLanguage" v-if="!showSub">
+                    {{ t(localeLanguage).header.language }}
+                </el-menu-item>
                 <el-sub-menu index="language" v-if="showSub">
                     <template #title>{{ t(localeLanguage).header.language }}</template>
                     <el-menu-item index="zh">中文</el-menu-item>

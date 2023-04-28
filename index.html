@@ -5,9 +5,13 @@
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vite + Vue + TS</title>
+    <!--preload-links-->
   </head>
   <body>
     <div id="app"><!--ssr-outlet--></div>
-    <script defer type="module" src="/src/entry-client.ts"></script>
+    <script type="module" src="/src/entry-client.ts"></script>
+    <script>
+      window.__INITIAL_STATE__ = '<!--store-state-->';
+    </script>
   </body>
 </html>
