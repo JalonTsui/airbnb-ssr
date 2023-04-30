@@ -3,8 +3,8 @@ import axios, { AxiosRequestConfig, AxiosResponse, InternalAxiosRequestConfig } 
 import { ElMessage } from 'element-plus/es/components/message/index.mjs'
 
 const defaultConfig: AxiosRequestConfig = {
-  timeout: 5000
-  // baseURL: '/release/'
+  timeout: 5000,
+  // baseURL: import.meta.env.PROD ? '' : 'http://localhost:3000'
 }
 class Http {
   constructor() {

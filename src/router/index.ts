@@ -24,6 +24,15 @@ const routes = [
                             name: 'main',
                             keepAlive: false
                         }
+                    },
+                    {
+                        path: 'homeMsg',
+                        component: () => import('@/views/home/homeMsg/homeMsg.vue'),
+                        name: 'homeMsg',
+                        meta: {
+                            name: 'homeMsg',
+                            keepAlive: false
+                        }
                     }
                 ]
             },

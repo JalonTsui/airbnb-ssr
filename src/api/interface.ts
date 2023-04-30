@@ -11,3 +11,7 @@ export interface IRoomListParams extends AxiosRequestConfig { // 定义interface
   pageSize: number,
   cityCode: string,
 }
+
+export interface IRoomDetailParams extends AxiosRequestConfig { // 定义interface规范返回结果的类型
+  id: number
+}

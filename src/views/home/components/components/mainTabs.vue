@@ -35,7 +35,7 @@ const cityArr = [{
     cityName: '苏州'
 }]
 function cityClick(tab: any) {
-    console.log(tab)
+    // console.log(tab)
     const { name } = tab.props
     cityCode.value = name
     // store.dispatch('getRoomList', { pageNo: 1, cityCode: name } as IRoomListParams)

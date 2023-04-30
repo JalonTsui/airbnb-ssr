@@ -13,9 +13,9 @@ $red: red;
 }
 
 // 主体基本样式
-@mixin main-wapper {
+@mixin main-wapper ($tb: 40px) {
     width: 64rem;
-    margin: 40px auto;
+    margin: $tb auto;
 }
 
 // flex布局

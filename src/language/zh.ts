@@ -50,6 +50,23 @@ export default {
       bj: '北京',
       sz: '苏州'
     }
+  },
+  homeMsg: {
+    order: '立即预定',
+    night: '晚',
+    personNumber: '人数',
+    rooms: '间卧室',
+    beds: '张床',
+    bathrooms: '间卫生间',
+    living: '可住',
+    remarks: '评论',
+    nearSubway: '靠近地铁',
+    freeParking: '免费停车',
+    luggage: '可存放行李',
+    authenticated: '已验证身份',
+    landlord: '房东',
+    contact: '联系房东',
+    greatlandlord: '超赞房东'
   }
 }
 

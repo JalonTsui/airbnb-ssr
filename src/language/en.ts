@@ -50,5 +50,22 @@ export default {
       bj: 'Beijing',
       sz: 'Suzhou'
     }
+  },
+  homeMsg: {
+    order: 'Order',
+    night: 'Night',
+    personNumber: 'Number of people',
+    rooms: 'Rooms',
+    beds: 'Beds',
+    bathrooms: 'Bathrooms',
+    living: 'Living',
+    remarks: 'Remarks',
+    nearSubway: 'Near the subway',
+    freeParking: 'Free Parking',
+    luggage: 'Deposit luggage',
+    authenticated: 'Authenticated',
+    landlord: 'Landlord',
+    contact: 'Contact the landlord',
+    greatlandlord: 'Great landlord'
   }
 }

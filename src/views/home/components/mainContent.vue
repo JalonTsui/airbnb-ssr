@@ -19,7 +19,7 @@ export default defineComponent({
         }
     },
     asyncData({ storeHomeSwiper }: any) {
-        console.log('预取数据' + new Date().getTime())
+        // console.log('预取数据' + new Date().getTime())
         const { pageNo } = storeHomeSwiper
         return storeHomeSwiper.getRoomList({ pageNo } as IRoomListParams)
     }

@@ -12,14 +12,14 @@ import { resolve } from "path";
 export default defineConfig({
   plugins: [
     vue(),
-  //   AutoImport({
-  //     imports: ['vue', 'vue-router'],
-  //     dts: "src/auto-import.d.ts",
-  //     resolvers: [ElementPlusResolver()],
-  //   }),
-  //   Components({
-  //     resolvers: [ElementPlusResolver()],
-  //   }),
+    //   AutoImport({
+    //     imports: ['vue', 'vue-router'],
+    //     dts: "src/auto-import.d.ts",
+    //     resolvers: [ElementPlusResolver()],
+    //   }),
+    //   Components({
+    //     resolvers: [ElementPlusResolver()],
+    //   }),
   ],
   css: {
     preprocessorOptions: {
@@ -36,17 +36,16 @@ export default defineConfig({
       "@": resolve(__dirname, "./src")
     }
   },
-  // server: {
-  //   host: 'localhost',
-  //     port: 3000,
-  //       proxy: {
-  //         '/release': {
-  //           target: 'https://service-ase3oocp-1302839645.sh.apigw.tencentcs.com',
-  //           changeOrigin: true,
-  //           rewrite: path => path.replace(/^\/release/, '')
-  //         }
-  //       }
-  // }  
+  server: {
+    host: 'localhost',
+    port: 3000,
+    proxy: {
+      '/release': {
+        target: 'http://110.42.184.111',
+        rewrite: path => path.replace(/^\/release/, '')
+      }
+    }
+  }
 })
 
 

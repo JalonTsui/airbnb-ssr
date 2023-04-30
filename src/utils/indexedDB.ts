@@ -10,7 +10,7 @@ export default class DB {
         const request = window.indexedDB.open(this.dbName, 2)
         return new Promise((resolve, reject) => {
             request.onsuccess = (event: any) => {
-                console.log('数据库打开成功')
+                // console.log('数据库打开成功')
                 this.db = event.target.result
                 // console.log(event)
                 resolve(true)

@@ -3,10 +3,10 @@ import App from './App.vue'
 import { createSSRRouter } from '@/router'
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
-// import i18n from '@/language/i18n'
 import { createPinia } from 'pinia'
 // 需要预取的数据库数据
 import { useHomeSwiper } from '@/store/homeSwiper'
+import { useHomeMsg } from '@/store/homeMsg'
 
 
 export function createApp() {
@@ -15,9 +15,9 @@ export function createApp() {
     const store = createPinia()
     app.use(ElementPlus as any)
     app.use(store)
+    // 需要用到的仓库数据
     const storeHomeSwiper = useHomeSwiper()
-
-    // app.use(i18n)
+    const storeHomeMsg = useHomeMsg()
     app.use(router)
-    return { app, router, storeHomeSwiper }
+    return { app, router, storeHomeSwiper, storeHomeMsg }
 }

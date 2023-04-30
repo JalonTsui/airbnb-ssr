@@ -63,7 +63,7 @@ async function createServer() {
             //    例如 ReactDOMServer.renderToString()
             // const manifest = require('./dist/client/ssr-manifest.json')
             const manifest = fs.readFileSync(path.resolve(__dirname, 'dist/client/ssr-manifest.json'), 'utf-8')
-            const { appHtml, state, preloadLinks } = await render(url, manifest)
+            const { appHtml, state, preloadLinks, homeMsg } = await render(url, manifest)
 
             // 5. 注入渲染后的应用程序 HTML 到模板中。
             let html
@@ -71,11 +71,13 @@ async function createServer() {
                 html = await template
                     .replace(`<!--ssr-outlet-->`, appHtml)
                     .replace(`'<!--store-state-->'`, state)
+                    .replace(`'<!--store-homemsg-->'`, homeMsg)
             } else {
                 html = await template
                     .replace(`<!--preload-links-->`, preloadLinks)
                     .replace(`<!--ssr-outlet-->`, appHtml)
                     .replace(`'<!--store-state-->'`, state)
+                    .replace(`'<!--store-homemsg-->'`, homeMsg)
             }
 
             // 6. 返回渲染后的 HTML。
