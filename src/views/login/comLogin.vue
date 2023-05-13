@@ -39,10 +39,16 @@ async function signFun(value: any) {
         ElMessage.error(message)
     }
 }
+// 跳转回去首页
+function toMain() {
+    router.replace({
+        name: 'main'
+    })
+}
 </script>
 <template>
     <section class="loginContain">
-        <div class="imgContain"></div>
+        <div class="imgContain" @click="toMain"></div>
         <div class="contentContain">
             <div class="main">
                 <!-- 头部tab -->

@@ -5,9 +5,10 @@ export default class DB {
         this.dbName = dbName
     }
 
+
     // 打开数据库
     public openStore(stores: any) {
-        const request = window.indexedDB.open(this.dbName, 2)
+        const request = window.indexedDB.open(this.dbName, 4)
         return new Promise((resolve, reject) => {
             request.onsuccess = (event: any) => {
                 // console.log('数据库打开成功')

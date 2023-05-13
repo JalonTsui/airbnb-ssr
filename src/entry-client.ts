@@ -6,7 +6,9 @@ const { app, router, storeHomeSwiper, storeHomeMsg } = createApp()
 router.beforeEach((to, from, next) => {
     airbnb.airbnbDB.openStore({
         ...airbnb.languageObjectStore,
-        ...airbnb.userObjectStore
+        ...airbnb.userObjectStore,
+        ...airbnb.orderObjectStore,
+        ...airbnb.recordObjectStore
     }).then((res: any) => {
         // console.log('初始化所有对象仓库', res)
         next()

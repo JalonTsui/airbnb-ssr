@@ -36,7 +36,9 @@ export default {
     loginTab: 'Log in',
     signTab: 'Sign up',
     placeMobile: 'Please  write correct mobile number',
-    placePass: 'Please white corret password'
+    placePass: 'Please white corret password',
+    logout: 'Logout',
+    loginLost: 'Please login first'
   },
   home: {
     h2Title: "New Year's Eve Discounts Housing Resource",
@@ -55,6 +57,7 @@ export default {
     order: 'Order',
     night: 'Night',
     personNumber: 'Number of people',
+    person: 'person',
     rooms: 'Rooms',
     beds: 'Beds',
     bathrooms: 'Bathrooms',
@@ -66,6 +69,12 @@ export default {
     authenticated: 'Authenticated',
     landlord: 'Landlord',
     contact: 'Contact the landlord',
-    greatlandlord: 'Great landlord'
+    greatlandlord: 'Great landlord',
+    reservated: 'Reservated successfully！'
+  },
+  common: {
+    loading: 'Loading...',
+    empty: 'Empty data ~',
+    loginFirst:'Please log in first!'
   }
 }

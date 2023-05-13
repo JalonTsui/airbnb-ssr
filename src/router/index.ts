@@ -33,6 +33,15 @@ const routes = [
                             name: 'homeMsg',
                             keepAlive: false
                         }
+                    },
+                    {
+                        path: 'record',
+                        component: () => import('@/views/record/recordIndex.vue'),
+                        name: 'record',
+                        meta: {
+                            name: 'record',
+                            keepAlive: false
+                        }
                     }
                 ]
             },

@@ -5,6 +5,8 @@ import { useLang } from '@/store/conLang'
 import { storeToRefs } from 'pinia'
 // 引入语言包
 import { t } from '@/utils/internationalization'
+// test
+// console.log('comLogin', import.meta)
 const props = defineProps({
     btnValue: {
         required: true

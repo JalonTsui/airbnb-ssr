@@ -32,7 +32,7 @@ class Http {
       const { data } = res
       const { success } = data
       if (success) {
-        ElMessage({ message: '获取成功', type: 'success' })
+        // ElMessage({ message: '获取成功', type: 'success' })
       } else {
         ElMessage.error('失败')
       }

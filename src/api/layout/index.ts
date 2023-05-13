@@ -10,7 +10,8 @@ const storeName = Object.keys(airbnb.languageObjectStore)[0]
 export async function saveLanguageApi(lang: any) {
   const loading = ElLoading.service({
     lock: true,
-    background: 'rgba(0, 0, 0, 0.1)'
+    background: 'rgba(0, 0, 0, 0.1)',
+    fullscreen:false
   })
   const resultOr: IResultOr = await airbnb.airbnbDB.getItem(storeName, 1).then(res => {
     return { code: '000000', message: '操作成功', result: res || null, success: true }
@@ -35,7 +36,8 @@ export async function saveLanguageApi(lang: any) {
 export async function fetchLanguageApi() {
   const loading = ElLoading.service({
     lock: true,
-    background: 'rgba(0, 0, 0, 0.1)'
+    background: 'rgba(0, 0, 0, 0.1)',
+    fullscreen:false
   })
   const result: IResultOr = await airbnb.airbnbDB.getItem(storeName, 1).then(res => {
     setTimeout(() => {

@@ -45,7 +45,12 @@ export default defineConfig({
         rewrite: path => path.replace(/^\/release/, '')
       }
     }
-  }
+  },
+  // optimizeDeps: {
+  //   include: [
+  //     './src/components/comLogin.vue'
+  //   ]
+  // }
 })
 
 

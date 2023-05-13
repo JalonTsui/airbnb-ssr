@@ -1,10 +1,21 @@
 <script setup lang="ts">
-import { reactive } from 'vue'
+import { reactive, getCurrentInstance, onMounted } from 'vue'
 import { useHomeMsg } from '@/store/homeMsg'
 import { storeToRefs } from 'pinia'
 import { t } from '@/utils/internationalization'
 import { useLang } from '@/store/conLang'
+import { saveOrderApi } from '@/api/order/index'
+import { saveRecordApi } from '@/api/record/index'
+import useToast from '@/composables/common/useToast'
+import { useLoginState } from '@/store/login'
+import { useRouter, useRoute } from 'vue-router'
 
+const router = useRouter()
+const route = useRoute()
+const { proxy }: any = getCurrentInstance()
+const { visible: toastVisible, showToast } = useToast()
+const storeLoginState = useLoginState()
+const { loginState } = storeToRefs(storeLoginState)
 // 组件房屋信息
 const storeHomeMsg = useHomeMsg()
 const { roomDetail } = storeToRefs(storeHomeMsg)
@@ -14,12 +25,85 @@ const { lang: langNow } = storeToRefs(storeLang)
 const orderForm = reactive({
     personNumber: 1
 })
+
+// 立即预定
+function saveOrder() {
+    const { id: orderId } = route.query
+    const {
+        title,
+        price,
+        imgs
+    } = roomDetail.value
+    const { personNumber } = orderForm
+    const params = {
+        orderId,
+        title,
+        price,
+        personNumber,
+        pictureUrl: imgs[0]
+    }
+    saveOrderApi(params).then((res) => {
+        console.log(res)
+        const { success, message } = res
+        if (success) {
+            // proxy.$message.success('预定成功')
+            showToast(1500)
+        } else {
+            proxy.$message.error(message)
+        }
+    })
+}
+
+onMounted(() => {
+    saveRecord()
+})
+
+// 保存历史足迹
+function saveRecord() {
+    const { id: recordId } = route.query
+    const {
+        title,
+        price,
+        imgs,
+        personNumber
+    } = roomDetail.value
+    const params = {
+        recordId,
+        title,
+        price,
+        personNumber,
+        pictureUrl: imgs[0]
+    }
+    saveRecordApi(params).then((_res) => {
+        // console.log(res)
+        // const { success, message } = res
+        // if (!success) {
+        //   proxy.$message.error(message)
+        // }
+    })
+}
+
 function submitForm() {
-    console.log('支付逻辑-----roomDetail')
+    if (loginState) {
+        saveOrder()
+    } else {
+        proxy.$message.warning(t(langNow.value).login.loginLost)
+        const { pathname } = window.location
+        router.replace({
+            name: 'login',
+            query: {
+                redirect: pathname
+            }
+        })
+    }
 }
 </script>
 
 <template>
+    <!-- Toast -->
+    <Teleport to="#app" v-if="toastVisible">
+        <el-alert :title="t(langNow).homeMsg.reservated" type="success" :closable="false"></el-alert>
+    </Teleport>
     <div v-if="roomDetail && roomDetail.info && roomDetail.owner">
         <!-- 照片墙 -->
         <el-carousel v-if="roomDetail.imgs && roomDetail.imgs.length > 0" class="imgs-wall" trigger="click" height="380px"
@@ -88,4 +172,6 @@ function submitForm() {
     </div>
 </template>
 
-<style lang='scss'></style>
+<style lang='scss' scoped>
+@import "@/assets/scss/common/toast.scss";
+</style>

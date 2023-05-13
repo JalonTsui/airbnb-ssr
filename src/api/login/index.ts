@@ -11,7 +11,8 @@ const storeName = Object.keys(airbnb.userObjectStore)[0]
 export async function userSignApi(params: any) {
   const loading = ElLoading.service({
     lock: true,
-    background: 'rgba(0, 0, 0, 0.1)'
+    background: 'rgba(0, 0, 0, 0.1)',
+    fullscreen: false
   })
 
   // 是否存在相同手机号
@@ -52,7 +53,8 @@ export async function userSignApi(params: any) {
 export async function userLoginApi(params: any) {
   const loading = ElLoading.service({
     lock: true,
-    background: 'rgba(0, 0, 0, 0.1)'
+    background: 'rgba(0, 0, 0, 0.1)',
+    fullscreen: false
   })
   // 校验手机号和密码是否正确
   const correct: any = await new Promise((resolve, reject) => {
@@ -60,29 +62,38 @@ export async function userLoginApi(params: any) {
       setTimeout(() => {
         loading.close()
       }, 200)
-      res && res.filter((item: any) => {
-        if (item.mobile === params.mobile && item.password !== params.password) { // 校验密码
-          resolve({ code: '000002' })
-        }
-        if (item.mobile !== params.mobile && item.password === params.password) { // 校验手机号
-          resolve({ code: '000003' })
-        }
-        if (item.mobile === params.mobile && item.password === params.password) { // 手机号和密码都输入正确
-          resolve({ code: '000000', userId: item.userId })
-        }
-      })
-      // 其他
-      resolve({ code: '000004' })
+      const isMobile = res && res.filter((item: any) => item.mobile === params.mobile)
+      if (isMobile.length === 0) return resolve({ code: '000003' })
+      if (isMobile[0].password !== params.password) return resolve({ code: '000002' })
+      if (isMobile[0].password === params.password) return resolve({ code: '000000', userId: isMobile[0].userId })
+      return resolve({ code: '000004' })
+      // return resolve(true)
+      // res && res.filter((item: any) => {
+      //   console.log(item)
+      //   if (item.mobile === params.mobile && item.password !== params.password) { // 校验密码
+      //     resolve({ code: '000002' })
+      //   }
+      //   if (item.mobile !== params.mobile && item.password === params.password) { // 校验手机号
+      //     console.log('in')
+      //     debugger
+      //     resolve({ code: '000003' })
+      //   }
+      //   if (item.mobile === params.mobile && item.password === params.password) { // 手机号和密码都输入正确
+      //     resolve({ code: '000000', userId: item.userId })
+      //   }
+      // })
+      // // 其他
+      // resolve({ code: '000004' })
     })
   })
   let result: IResultOr
   if (correct.code !== '000000') {
     result = await new Promise((resolve, reject) => {
-      resolve({ code: correct.code, success: false, message: correct.code === '000002' ? '密码不正确' : (correct.code === '000003' ? '手机号不正确' : '不存在该用户，请先注册'), result: null })
+      resolve({ code: correct.code, success: false, message: correct.code === '000003' ? '不存在该用户，请先注册' : (correct.code === '000002' ? '密码不正确' : '未知错误'), result: null })
     })
   } else { // 手机号和密码正确后更新登录状态
     const token = (new Date()).getTime() + ''
-    if(!import.meta.env.SSR){
+    if (!import.meta.env.SSR) {
       document.cookie = `token=${token}`
     }
     const obj = { status: 1, userId: correct.userId, token }
@@ -92,6 +103,8 @@ export async function userLoginApi(params: any) {
         setTimeout(() => {
           loading.close()
         }, 200)
+        // test 确定是那个用户登录，展示浏览记录
+        localStorage.setItem('userId', correct.userId)
         resolve({ code: '000000', success: true, message: '操作成功', result: obj })
       })
     })
@@ -103,7 +116,8 @@ export async function userLoginApi(params: any) {
 export async function userLogoutApi() {
   const loading = ElLoading.service({
     lock: true,
-    background: 'rgba(0, 0, 0, 0.1)'
+    background: 'rgba(0, 0, 0, 0.1)',
+    fullscreen: false
   })
   // 根据用户token更改登录态为0
   const correct: any = await new Promise((resolve, reject) => {
@@ -113,7 +127,7 @@ export async function userLogoutApi() {
       }, 200)
       res && res.filter((item: any) => {
         const cookie = document.cookie
-        const token = getQueryCookie(cookie, 'token') // 获取cookie中的toke
+        const token = getQueryCookie(cookie, 'token') // 获取cookie中的token
         if (item.token && item.token.indexOf(token) !== -1) { // 存在相同token
           resolve({ userId: item.userId })
         }
@@ -139,6 +153,8 @@ export async function userLogoutApi() {
         setTimeout(() => {
           loading.close()
         }, 200)
+        // test 确定是那个用户登录，展示浏览记录
+        localStorage.removeItem('userId')
         resolve({ code: '000000', success: true, message: '操作成功', result: null })
       })
     })

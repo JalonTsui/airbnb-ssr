@@ -36,7 +36,9 @@ export default {
     loginTab: '登录',
     signTab: '注册',
     placeMobile: '请输入正确的手机号',
-    placePass: '请输入正确的密码'
+    placePass: '请输入正确的密码',
+    logout: '退出',
+    loginLost: '您还未登录，请先登录哦~'
   },
   home: {
     h2Title: '跨年特惠房源',
@@ -55,6 +57,7 @@ export default {
     order: '立即预定',
     night: '晚',
     personNumber: '人数',
+    person: '人',
     rooms: '间卧室',
     beds: '张床',
     bathrooms: '间卫生间',
@@ -66,7 +69,14 @@ export default {
     authenticated: '已验证身份',
     landlord: '房东',
     contact: '联系房东',
-    greatlandlord: '超赞房东'
+    greatlandlord: '超赞房东',
+    reservated: '预定成功！'
+  },
+  common: {
+    loading: '拼命加载中...',
+    empty: '空空如也 ~',
+    loginFirst:'请先登录!'
   }
 }
+
 

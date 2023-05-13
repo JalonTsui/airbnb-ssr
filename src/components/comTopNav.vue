@@ -1,34 +1,57 @@
 <script setup lang='ts'>
 import { ElMessage } from 'element-plus/es/components/message/index.mjs'
-import { ref, inject } from 'vue'
+import { ref, inject, defineAsyncComponent } from 'vue'
 import { storeToRefs } from 'pinia'
 import { t } from '@/utils/internationalization'
 import { useRouter } from 'vue-router'
 import { userLogoutApi } from '@/api/login'
+import { useOrderVisable } from '@/store/orderVisable'
 // 获取当前登录状态
 import { useLoginState } from '@/store/login'
 const storeLoginState = useLoginState()
 const { loginState } = storeToRefs(storeLoginState)
 const router = useRouter()
 const emits = defineEmits(['onChangeLanguage'])
-const localeLanguage: string = inject('localeLanguage') || ''
+const localeLanguage: any = inject('localeLanguage') || ''
 const activeIndex = ref('1')
+// 订单异步组件
+const OrderPopover = defineAsyncComponent(() => import('@/views/order/components/orderPopover.vue'))
+const storeOrderVisable = useOrderVisable()
+const { orderVisable } = storeToRefs(storeOrderVisable)
 // 点击nav的事件
 // key就是和keyPath都是index，一个展示第一层，一个以数组展示全部层级
 // 在没有使用的变量前面加_可以让报错消除
 const handleSelect = async (key: string, _keyPath: string[]) => {
     // 房源和订单信息orders
     if (key === "orders") {
-        console.log(key)
+        // 判断是否为登录态
+        if (!localStorage.getItem('userId')) {
+            ElMessage.error(t(localeLanguage.value).common.loginFirst)
+            router.replace({
+                name: 'login'
+            })
+            return
+        }
+        storeOrderVisable.setOrderVisable(true)
     }
     // 历史足迹records
     if (key === "records") {
-        console.log(key)
+        // 判断是否为登录态
+        if (!localStorage.getItem('userId')) {
+            ElMessage.error(t(localeLanguage.value).common.loginFirst)
+            router.replace({
+                name: 'login'
+            })
+            return
+        }
+        router.push({
+            name: 'record'
+        })
     }
     // 登录和注册login
     if (key === 'login') {
         try {
-            router.push({ name: 'login' })
+            router.replace({ name: 'login' })
         } catch (e) {
             console.log(e)
         }
@@ -44,6 +67,9 @@ const handleSelect = async (key: string, _keyPath: string[]) => {
         if (code === '000000') {
             ElMessage({ message, type: 'success' })
             storeLoginState.logout()
+            router.replace({
+                name: 'login'
+            })
         } else {
             ElMessage.error(message)
         }
@@ -59,6 +85,7 @@ if (!import.meta.env.SSR) {
     showSub.value = true
 }
 </script>
+
 <template>
     <div class="contain">
         <div class="imgContain">
@@ -67,8 +94,22 @@ if (!import.meta.env.SSR) {
         <div class="navContain">
             <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect"
                 :ellipsis="false">
-                <el-menu-item index="orders">{{ t(localeLanguage).header.orders }}</el-menu-item>
+                <el-menu-item index="orders">{{ t(localeLanguage).header.orders }}
+                    <template v-if="orderVisable">
+                        <Suspense>
+                            <template #default>
+                                <OrderPopover />
+                            </template>
+                            <template #fallback>
+                                <ul class="loading-mine">
+                                    <li class="loading-block">{{ t(localeLanguage).common.loading }}</li>
+                                    <!-- <div class="loading-block">{{ t(localeLanguage).common.loading }}</div> -->
+                                </ul>
+                            </template>
+                        </Suspense>
+                    </template></el-menu-item>
                 <el-menu-item index="records">{{ t(localeLanguage).header.records }}</el-menu-item>
+
                 <!-- 用于服务端渲染占位，避免跳动 -->
                 <el-menu-item index="demoLanguage" v-if="!showSub">
                     {{ t(localeLanguage).header.language }}
@@ -92,4 +133,8 @@ if (!import.meta.env.SSR) {
 </template>
 <style scoped lang="scss">
 @import "@/assets/scss/comTopNav/index.scss";
+
+.loading-mine {
+    @include placeholder-order;
+}
 </style>
