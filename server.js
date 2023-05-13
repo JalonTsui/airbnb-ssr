@@ -65,6 +65,13 @@ async function createServer() {
             const manifest = fs.readFileSync(path.resolve(__dirname, 'dist/client/ssr-manifest.json'), 'utf-8')
             const { appHtml, state, preloadLinks, homeMsg } = await render(url, manifest)
 
+            // const { roomDetail } = state
+            // const { title: roomTitle = "", owner } = roomDetail || {}
+            // const { introduce = "" } = owner || {}
+            // 拿去对应路由元信息
+            // const { meta } = route
+            // const { title, keywords, description } = meta
+            // console.log(roomDetail, 'roomDetail')
             // 5. 注入渲染后的应用程序 HTML 到模板中。
             let html
             if (!isProd) {
@@ -72,12 +79,18 @@ async function createServer() {
                     .replace(`<!--ssr-outlet-->`, appHtml)
                     .replace(`'<!--store-state-->'`, state)
                     .replace(`'<!--store-homemsg-->'`, homeMsg)
+                    .replace('<title>', `<title>${'JalonTsui Airbnb'}`)
+                    // .replace('<meta name="keywords" content="" />', `<meta name="keywords" content="${keywords}${introduce}" />`)
+                    // .replace('<meta name="description" content="" />', `<meta name="description" content="${description}${introduce}" />`)
             } else {
                 html = await template
                     .replace(`<!--preload-links-->`, preloadLinks)
                     .replace(`<!--ssr-outlet-->`, appHtml)
                     .replace(`'<!--store-state-->'`, state)
                     .replace(`'<!--store-homemsg-->'`, homeMsg)
+                    // .replace('<title>', `<title>${title}${roomTitle}`)
+                    // .replace('<meta name="keywords" content="" />', `<meta name="keywords" content="${keywords}${introduce}" />`)
+                    // .replace('<meta name="description" content="" />', `<meta name="description" content="${description}${introduce}" />`)
             }
 
             // 6. 返回渲染后的 HTML。

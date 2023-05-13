@@ -5,6 +5,7 @@ export async function render(url: string, manifest: any) {
     const { app, router, storeHomeSwiper, storeHomeMsg } = createApp()
     await router.push(url)
     await router.isReady()
+    // console.log(router.getRoutes())
     const matchedComponents = router.currentRoute.value.matched.flatMap((record: any) =>
         Object.values(record.components)
     )
